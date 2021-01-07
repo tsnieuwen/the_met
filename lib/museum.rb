@@ -36,4 +36,18 @@ class Museum
     grouped
   end
 
+  def ticket_lottery_contestants(exhibit)
+    @patrons.find_all do |patron|
+      patron.interests.include?(exhibit.name) && patron.spending_money < exhibit.cost
+    end
+  end
+
+  def draw_lottery_winner(exhibit)
+    if ticket_lottery_contestants(exhibit) == []
+      nil
+    else
+      ticket_lottery_contestants(exhibit).sample.name
+    end
+  end
+
 end
